@@ -10,32 +10,45 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0a0a0a;
+      background: #07090f;
       color: #f0f0f0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow-x: hidden;
     }
 
-    /* Hero */
+    /* ── Canvas background ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── All content above canvas ── */
+    body > *:not(#bg-canvas) { position: relative; z-index: 1; }
+
+    /* ── Hero ── */
     .hero {
       width: 100%;
       max-width: 900px;
-      padding: 80px 24px 60px;
+      padding: 90px 24px 20px;
       text-align: center;
     }
 
     .badge {
       display: inline-block;
-      background: #1a1a1a;
-      border: 1px solid #333;
+      background: rgba(68,170,255,0.1);
+      border: 1px solid rgba(68,170,255,0.3);
       border-radius: 999px;
-      padding: 6px 16px;
-      font-size: 13px;
-      color: #aaa;
-      margin-bottom: 32px;
-      letter-spacing: 0.04em;
+      padding: 6px 18px;
+      font-size: 12px;
+      color: #4af;
+      margin-bottom: 28px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1 {
@@ -46,66 +59,146 @@
       margin-bottom: 20px;
     }
 
-    h1 span {
-      color: #4af;
-    }
+    h1 span { color: #4af; }
 
     .subtitle {
-      font-size: 1.15rem;
-      color: #999;
-      max-width: 520px;
-      margin: 0 auto 48px;
-      line-height: 1.6;
+      font-size: 1.1rem;
+      color: #888;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
     }
 
-    /* Code box */
+    /* ── SVG Car Scene ── */
+    .car-scene {
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto 48px;
+      padding: 0 16px;
+    }
+
+    .car-scene svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 40px rgba(68,170,255,0.15));
+    }
+
+    /* Road animation */
+    .road-line {
+      animation: roadScroll 0.6s linear infinite;
+    }
+
+    @keyframes roadScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-60px); }
+    }
+
+    /* Car hover float */
+    .car-body {
+      animation: carFloat 3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    @keyframes carFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-6px); }
+    }
+
+    /* Sensor pulse rings */
+    .sensor-ring {
+      transform-origin: 390px 148px;
+      animation: sensorPulse 2s ease-out infinite;
+      opacity: 0;
+    }
+    .sensor-ring:nth-child(2) { animation-delay: 0.6s; }
+    .sensor-ring:nth-child(3) { animation-delay: 1.2s; }
+
+    @keyframes sensorPulse {
+      0%   { transform: scale(0.3); opacity: 0.8; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    /* Headlight beams */
+    .beam {
+      animation: beamPulse 2s ease-in-out infinite;
+    }
+    .beam:nth-child(2) { animation-delay: 0.3s; }
+
+    @keyframes beamPulse {
+      0%, 100% { opacity: 0.15; }
+      50%       { opacity: 0.35; }
+    }
+
+    /* Wheel spin */
+    .wheel {
+      animation: wheelSpin 0.8s linear infinite;
+    }
+    .wheel-front { transform-origin: 498px 198px; }
+    .wheel-rear  { transform-origin: 282px 198px; }
+
+    @keyframes wheelSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Scan line sweep */
+    .scan-line {
+      animation: scanSweep 3s ease-in-out infinite;
+      transform-origin: 390px 148px;
+    }
+
+    @keyframes scanSweep {
+      0%   { transform: rotate(-40deg); opacity: 0.6; }
+      50%  { transform: rotate(40deg);  opacity: 0.9; }
+      100% { transform: rotate(-40deg); opacity: 0.6; }
+    }
+
+    /* ── Code card ── */
     .code-card {
-      background: #141414;
-      border: 1px solid #2a2a2a;
-      border-radius: 20px;
+      background: rgba(20,20,28,0.85);
+      border: 1px solid #2a2a3a;
+      border-radius: 24px;
       padding: 40px 36px;
       max-width: 480px;
-      margin: 0 auto 60px;
+      width: calc(100% - 48px);
+      margin: 0 auto 64px;
       text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 60px rgba(68,170,255,0.06);
     }
 
     .code-label {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #666;
-      margin-bottom: 16px;
+      letter-spacing: 0.14em;
+      color: #555;
+      margin-bottom: 14px;
     }
 
     .code {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       color: #fff;
-      background: #1e1e1e;
-      border: 2px dashed #333;
-      border-radius: 12px;
+      background: #131318;
+      border: 2px dashed #2a2a3a;
+      border-radius: 14px;
       padding: 18px 28px;
       cursor: pointer;
       user-select: all;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .code:hover {
       border-color: #4af;
-      background: #1a2530;
+      background: #0e1820;
+      box-shadow: 0 0 24px rgba(68,170,255,0.15);
     }
 
-    .copy-hint {
-      font-size: 12px;
-      color: #555;
-    }
-
-    .copy-hint.copied {
-      color: #4af;
-    }
+    .copy-hint { font-size: 12px; color: #444; }
+    .copy-hint.copied { color: #4af; }
 
     .cta-btn {
       display: inline-block;
@@ -114,39 +207,43 @@
       color: #000;
       font-weight: 700;
       font-size: 1rem;
-      padding: 16px 36px;
+      padding: 16px 38px;
       border-radius: 999px;
       text-decoration: none;
       letter-spacing: 0.02em;
-      transition: background 0.2s, transform 0.15s;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(68,170,255,0.3);
     }
 
     .cta-btn:hover {
       background: #6cf;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(68,170,255,0.5);
     }
 
-    .cta-note {
-      font-size: 12px;
-      color: #555;
-      margin-top: 12px;
-    }
+    .cta-note { font-size: 12px; color: #444; margin-top: 12px; }
 
-    /* How it works */
+    /* ── Steps ── */
     .steps {
       width: 100%;
       max-width: 860px;
       padding: 0 24px 80px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      gap: 16px;
     }
 
     .step {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 16px;
+      background: rgba(16,16,22,0.8);
+      border: 1px solid #1e1e2a;
+      border-radius: 18px;
       padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .step:hover {
+      border-color: #2a3a4a;
+      transform: translateY(-3px);
     }
 
     .step-num {
@@ -157,76 +254,198 @@
       margin-bottom: 12px;
     }
 
-    .step h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
+    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+    .step p  { font-size: 0.88rem; color: #666; line-height: 1.6; }
 
-    .step p {
-      font-size: 0.88rem;
-      color: #777;
-      line-height: 1.5;
-    }
-
-    /* What is Waymo */
+    /* ── Info ── */
     .info {
       width: 100%;
-      max-width: 680px;
+      max-width: 660px;
       padding: 0 24px 80px;
       text-align: center;
     }
 
-    .info h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
+    .info h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 14px; }
+    .info p  { color: #666; line-height: 1.8; font-size: 0.95rem; }
 
-    .info p {
-      color: #777;
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
-
-    /* Footer */
+    /* ── Footer ── */
     footer {
       width: 100%;
-      border-top: 1px solid #1a1a1a;
+      border-top: 1px solid #111;
       padding: 24px;
       text-align: center;
-      font-size: 12px;
-      color: #444;
-      line-height: 1.6;
+      font-size: 11px;
+      color: #333;
+      line-height: 1.7;
     }
-
-    footer a {
-      color: #555;
-    }
+    footer a { color: #444; }
   </style>
 </head>
 <body>
+
+  <!-- Particle canvas -->
+  <canvas id="bg-canvas"></canvas>
 
   <section class="hero">
     <div class="badge">Referral Offer</div>
     <h1>Your first Waymo ride.<br /><span>$10 on us.</span></h1>
     <p class="subtitle">
-      No driver. No awkward small talk. Just a safe, smooth robotaxi ride —
-      and $10 off when you use this referral code.
+      No driver. No awkward small talk. Just a safe, smooth robotaxi —
+      and $10 off your first ride when you use this code.
     </p>
   </section>
 
+  <!-- Animated SVG Car Scene -->
+  <div class="car-scene">
+    <svg viewBox="0 0 780 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1a2e"/>
+          <stop offset="100%" stop-color="#0d0d18"/>
+        </linearGradient>
+        <linearGradient id="carGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1e2535"/>
+          <stop offset="100%" stop-color="#111620"/>
+        </linearGradient>
+        <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4af" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#4af" stop-opacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#4af" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#4af" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <clipPath id="roadClip">
+          <rect x="0" y="200" width="780" height="60"/>
+        </clipPath>
+      </defs>
+
+      <!-- Road -->
+      <rect x="0" y="200" width="780" height="60" fill="url(#roadGrad)" rx="0"/>
+      <rect x="0" y="198" width="780" height="3" fill="#4af" opacity="0.15"/>
+
+      <!-- Animated dashed road lines -->
+      <g clip-path="url(#roadClip)">
+        <g class="road-line">
+          <rect x="0"   y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="60"  y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="120" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="180" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="240" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="300" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="360" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="420" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="480" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="540" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="600" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="660" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="720" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+          <rect x="780" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+        </g>
+      </g>
+
+      <!-- Headlight beams -->
+      <polygon class="beam" points="540,172 780,140 780,200" fill="url(#beamGrad)"/>
+      <polygon class="beam" points="540,182 780,160 780,210" fill="url(#beamGrad)" style="animation-delay:0.3s"/>
+
+      <!-- Car body group (floats) -->
+      <g class="car-body">
+
+        <!-- Car shadow -->
+        <ellipse cx="390" cy="206" rx="175" ry="8" fill="#000" opacity="0.5"/>
+
+        <!-- Main body -->
+        <rect x="200" y="155" width="380" height="50" rx="8" fill="url(#carGrad)"/>
+
+        <!-- Cabin / roof -->
+        <path d="M280 155 Q300 110 360 108 L420 108 Q480 108 500 155 Z" fill="url(#carGrad)"/>
+
+        <!-- Windshield -->
+        <path d="M295 153 Q312 118 360 115 L420 115 Q465 118 480 153 Z" fill="url(#glassGrad)" stroke="#4af" stroke-width="0.5" stroke-opacity="0.4"/>
+
+        <!-- Side windows -->
+        <rect x="305" y="118" width="55" height="34" rx="4" fill="url(#glassGrad)" stroke="#4af" stroke-width="0.5" stroke-opacity="0.3"/>
+        <rect x="368" y="118" width="55" height="34" rx="4" fill="url(#glassGrad)" stroke="#4af" stroke-width="0.5" stroke-opacity="0.3"/>
+
+        <!-- Door lines -->
+        <line x1="367" y1="155" x2="367" y2="205" stroke="#4af" stroke-width="0.5" stroke-opacity="0.2"/>
+        <line x1="300" y1="170" x2="580" y2="170" stroke="#4af" stroke-width="0.3" stroke-opacity="0.15"/>
+
+        <!-- Headlights -->
+        <rect x="535" y="165" width="28" height="12" rx="4" fill="#4af" opacity="0.9" filter="url(#glow)"/>
+        <rect x="538" y="168" width="22" height="6" rx="3" fill="#fff" opacity="0.9"/>
+
+        <!-- Taillights -->
+        <rect x="217" y="165" width="22" height="12" rx="4" fill="#f44" opacity="0.7" filter="url(#glow)"/>
+        <rect x="219" y="168" width="16" height="6" rx="3" fill="#f88" opacity="0.8"/>
+
+        <!-- Roof sensor (lidar) -->
+        <rect x="375" y="102" width="30" height="10" rx="3" fill="#2a3545" stroke="#4af" stroke-width="0.8"/>
+        <rect x="382" y="98" width="16" height="6" rx="2" fill="#4af" opacity="0.6"/>
+
+        <!-- Wheels -->
+        <g class="wheel wheel-front">
+          <circle cx="498" cy="198" r="22" fill="#111" stroke="#333" stroke-width="2"/>
+          <circle cx="498" cy="198" r="14" fill="#1a1a1a" stroke="#4af" stroke-width="0.5" stroke-opacity="0.5"/>
+          <circle cx="498" cy="198" r="4" fill="#4af" opacity="0.6"/>
+          <line x1="498" y1="184" x2="498" y2="212" stroke="#333" stroke-width="1.5"/>
+          <line x1="484" y1="198" x2="512" y2="198" stroke="#333" stroke-width="1.5"/>
+        </g>
+        <g class="wheel wheel-rear">
+          <circle cx="282" cy="198" r="22" fill="#111" stroke="#333" stroke-width="2"/>
+          <circle cx="282" cy="198" r="14" fill="#1a1a1a" stroke="#4af" stroke-width="0.5" stroke-opacity="0.5"/>
+          <circle cx="282" cy="198" r="4" fill="#4af" opacity="0.6"/>
+          <line x1="282" y1="184" x2="282" y2="212" stroke="#333" stroke-width="1.5"/>
+          <line x1="268" y1="198" x2="296" y2="198" stroke="#333" stroke-width="1.5"/>
+        </g>
+
+        <!-- Lidar scan line -->
+        <line class="scan-line" x1="390" y1="100" x2="390" y2="20" stroke="#4af" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="4 3"/>
+
+        <!-- Sensor pulse rings -->
+        <circle class="sensor-ring" cx="390" cy="100" r="30" stroke="#4af" stroke-width="1" fill="none" opacity="0"/>
+        <circle class="sensor-ring" cx="390" cy="100" r="30" stroke="#4af" stroke-width="1" fill="none" opacity="0"/>
+        <circle class="sensor-ring" cx="390" cy="100" r="30" stroke="#4af" stroke-width="1" fill="none" opacity="0"/>
+
+      </g>
+
+      <!-- Floating data points -->
+      <circle cx="160" cy="80"  r="2" fill="#4af" opacity="0.4">
+        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="620" cy="60"  r="2" fill="#4af" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.7s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="680" cy="120" r="1.5" fill="#4af" opacity="0.5">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="100" cy="140" r="1.5" fill="#4af" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="1.9s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Speed lines -->
+      <line x1="60"  y1="168" x2="140" y2="168" stroke="#4af" stroke-width="1" stroke-opacity="0.12"/>
+      <line x1="40"  y1="178" x2="130" y2="178" stroke="#4af" stroke-width="0.8" stroke-opacity="0.08"/>
+      <line x1="70"  y1="188" x2="120" y2="188" stroke="#4af" stroke-width="0.6" stroke-opacity="0.06"/>
+    </svg>
+  </div>
+
+  <!-- Code card -->
   <div class="code-card">
     <div class="code-label">Your referral code</div>
     <div class="code" id="code" onclick="copyCode()">ANDREW3BYE</div>
     <div class="copy-hint" id="hint">Click to copy</div>
-
     <a class="cta-btn" href="https://waymo.com/app" target="_blank" rel="noopener">
       Download Waymo &amp; Redeem →
     </a>
     <p class="cta-note">Enter code at checkout in the Waymo app</p>
   </div>
 
+  <!-- Steps -->
   <section class="steps">
     <div class="step">
       <div class="step-num">Step 1</div>
@@ -245,12 +464,13 @@
     </div>
   </section>
 
+  <!-- Info -->
   <section class="info">
     <h2>What is Waymo?</h2>
     <p>
       Waymo is an autonomous vehicle service that lets you hail a self-driving car
       with no human driver behind the wheel. Currently available in select cities
-      including San Francisco, Los Angeles, and Phoenix. It's safe, quiet, and
+      including San Francisco, Los Angeles, and Phoenix. Safe, quiet, and
       genuinely unlike any ride you've taken before.
     </p>
   </section>
@@ -263,6 +483,7 @@
   </footer>
 
   <script>
+    // ── Copy code ──
     function copyCode() {
       navigator.clipboard.writeText("ANDREW3BYE").then(() => {
         const hint = document.getElementById("hint");
@@ -274,6 +495,71 @@
         }, 2000);
       });
     }
+
+    // ── Particle field ──
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    let W, H, particles = [];
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function initParticles() {
+      particles = [];
+      const count = Math.floor((W * H) / 14000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 1.4 + 0.3,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          alpha: Math.random() * 0.5 + 0.1,
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = W;
+        if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H;
+        if (p.y > H) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(68,170,255,${p.alpha})`;
+        ctx.fill();
+      }
+
+      // Draw connecting lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(68,170,255,${0.06 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    window.addEventListener("resize", () => { resize(); initParticles(); });
+    resize();
+    initParticles();
+    drawParticles();
   </script>
 
 </body>
