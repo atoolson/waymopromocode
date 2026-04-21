@@ -39,6 +39,72 @@
   }
   </script>
 
+  <!-- FAQPage Schema (helps with Google featured snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Waymo referral code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Waymo referral code is ANDREW3BYE. Enter it when creating your Waymo One account to get $10 off your first robotaxi ride."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use a Waymo promo code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Download the Waymo One app from the App Store or Google Play, create a new account, and enter the referral code ANDREW3BYE during sign-up. The $10 credit is automatically applied to your first ride."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which cities is Waymo available in?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Waymo One is currently available in San Francisco, Los Angeles, Phoenix, and is expanding to additional cities including Austin, Miami, and Washington D.C."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Waymo cheaper than Uber or Lyft?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Waymo prices are comparable to Uber and Lyft, and often cheaper during surge pricing. With the referral code ANDREW3BYE you also get $10 off your first ride."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Waymo safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Waymo's self-driving vehicles have completed tens of millions of fully autonomous miles on public roads. The company publishes independent safety data showing significantly fewer injury-causing crashes per mile than human drivers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to tip a Waymo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No tipping required. Since there's no human driver, the fare you see is what you pay."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the Waymo referral code expire?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The referral code ANDREW3BYE is valid for new Waymo One users on their first ride. Waymo may change or discontinue the referral program at any time, so use it soon."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-32HW2DHNZW"></script>
   <script>
@@ -229,6 +295,64 @@
       line-height: 1.7;
     }
     footer a { color: #444; }
+
+    /* FAQ */
+    .faq {
+      width: 100%;
+      max-width: 720px;
+      padding: 0 24px 80px;
+      margin: 0 auto;
+    }
+    .faq h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .faq details {
+      border: 1px solid #1a1f2e;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      background: #0b0f18;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .faq details[open] {
+      border-color: #2a3545;
+      background: #0d1220;
+    }
+    .faq summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #d8e4f0;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      color: #4af;
+      font-size: 1.3rem;
+      font-weight: 400;
+      transition: transform 0.2s ease;
+      line-height: 1;
+    }
+    .faq details[open] summary::after {
+      content: "−";
+    }
+    .faq details p {
+      margin-top: 12px;
+      color: #8a99ad;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+    .faq details p strong {
+      color: #d8e4f0;
+    }
   </style>
 </head>
 <body>
@@ -578,6 +702,45 @@
     </p>
   </section>
 
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>What is the Waymo referral code?</summary>
+      <p>The Waymo referral code is <strong>ANDREW3BYE</strong>. Enter it when creating your Waymo One account to get $10 off your first robotaxi ride.</p>
+    </details>
+
+    <details>
+      <summary>How do I use a Waymo promo code?</summary>
+      <p>Download the Waymo One app from the App Store or Google Play, create a new account, and enter the referral code <strong>ANDREW3BYE</strong> during sign-up. The $10 credit is automatically applied to your first ride.</p>
+    </details>
+
+    <details>
+      <summary>Which cities is Waymo available in?</summary>
+      <p>Waymo One is currently available in <strong>San Francisco</strong>, <strong>Los Angeles</strong>, <strong>Phoenix</strong>, and is expanding to additional cities including Austin, Miami, and Washington D.C.</p>
+    </details>
+
+    <details>
+      <summary>Is Waymo cheaper than Uber or Lyft?</summary>
+      <p>Waymo prices are comparable to Uber and Lyft, and often cheaper during surge pricing. With the referral code <strong>ANDREW3BYE</strong> you also get $10 off your first ride.</p>
+    </details>
+
+    <details>
+      <summary>Is Waymo safe?</summary>
+      <p>Waymo's self-driving vehicles have completed tens of millions of fully autonomous miles on public roads. The company publishes independent safety data showing significantly fewer injury-causing crashes per mile than human drivers.</p>
+    </details>
+
+    <details>
+      <summary>Do I need to tip a Waymo?</summary>
+      <p>No tipping required. Since there's no human driver, the fare you see is what you pay.</p>
+    </details>
+
+    <details>
+      <summary>Does the Waymo referral code expire?</summary>
+      <p>The referral code <strong>ANDREW3BYE</strong> is valid for new Waymo One users on their first ride. Waymo may change or discontinue the referral program at any time, so use it soon.</p>
+    </details>
+  </section>
+
   <footer>
     This is an independent referral page. Not affiliated with or endorsed by Waymo LLC.
     Waymo is a trademark of Waymo LLC. Referral credit subject to
@@ -591,12 +754,35 @@
         const hint = document.getElementById("hint");
         hint.textContent = "✓ Copied!";
         hint.classList.add("copied");
+        // GA4 conversion event — fires when user copies the referral code
+        if (typeof gtag === "function") {
+          gtag("event", "copy_code", {
+            referral_code: "ANDREW3BYE",
+            value: 10,
+            currency: "USD"
+          });
+        }
         setTimeout(() => {
           hint.textContent = "Click to copy";
           hint.classList.remove("copied");
         }, 2000);
       });
     }
+
+    // Also track clicks on the "Download Waymo" CTA button
+    document.addEventListener("DOMContentLoaded", function () {
+      const cta = document.querySelector(".cta-btn");
+      if (cta) {
+        cta.addEventListener("click", function () {
+          if (typeof gtag === "function") {
+            gtag("event", "click_download_cta", {
+              referral_code: "ANDREW3BYE",
+              destination: "waymo.com/app"
+            });
+          }
+        });
+      }
+    });
 
     // Particle field
     const canvas = document.getElementById("bg-canvas");
