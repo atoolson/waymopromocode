@@ -19,7 +19,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Canvas background ── */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -27,14 +26,12 @@
       pointer-events: none;
     }
 
-    /* ── All content above canvas ── */
     body > *:not(#bg-canvas) { position: relative; z-index: 1; }
 
-    /* ── Hero ── */
     .hero {
       width: 100%;
       max-width: 900px;
-      padding: 90px 24px 20px;
+      padding: 80px 24px 10px;
       text-align: center;
     }
 
@@ -65,95 +62,93 @@
       font-size: 1.1rem;
       color: #888;
       max-width: 500px;
-      margin: 0 auto 40px;
+      margin: 0 auto 36px;
       line-height: 1.7;
     }
 
-    /* ── SVG Car Scene ── */
+    /* Car scene */
     .car-scene {
       width: 100%;
-      max-width: 780px;
-      margin: 0 auto 48px;
+      max-width: 820px;
+      margin: 0 auto 40px;
       padding: 0 16px;
     }
 
     .car-scene svg {
       width: 100%;
       height: auto;
-      filter: drop-shadow(0 0 40px rgba(68,170,255,0.15));
+      overflow: visible;
     }
 
-    /* Road animation */
-    .road-line {
-      animation: roadScroll 0.6s linear infinite;
+    /* Float animation for whole car */
+    .car-group {
+      animation: carFloat 4s ease-in-out infinite;
     }
-
-    @keyframes roadScroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-60px); }
-    }
-
-    /* Car hover float */
-    .car-body {
-      animation: carFloat 3s ease-in-out infinite;
-      transform-origin: center bottom;
-    }
-
     @keyframes carFloat {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-6px); }
-    }
-
-    /* Sensor pulse rings */
-    .sensor-ring {
-      transform-origin: 390px 148px;
-      animation: sensorPulse 2s ease-out infinite;
-      opacity: 0;
-    }
-    .sensor-ring:nth-child(2) { animation-delay: 0.6s; }
-    .sensor-ring:nth-child(3) { animation-delay: 1.2s; }
-
-    @keyframes sensorPulse {
-      0%   { transform: scale(0.3); opacity: 0.8; }
-      100% { transform: scale(1.8); opacity: 0; }
-    }
-
-    /* Headlight beams */
-    .beam {
-      animation: beamPulse 2s ease-in-out infinite;
-    }
-    .beam:nth-child(2) { animation-delay: 0.3s; }
-
-    @keyframes beamPulse {
-      0%, 100% { opacity: 0.15; }
-      50%       { opacity: 0.35; }
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
     }
 
     /* Wheel spin */
-    .wheel {
-      animation: wheelSpin 0.8s linear infinite;
-    }
-    .wheel-front { transform-origin: 498px 198px; }
-    .wheel-rear  { transform-origin: 282px 198px; }
-
-    @keyframes wheelSpin {
+    .wheel-f { animation: spin 0.9s linear infinite; transform-origin: 524px 212px; }
+    .wheel-r { animation: spin 0.9s linear infinite; transform-origin: 256px 212px; }
+    @keyframes spin {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
     }
 
-    /* Scan line sweep */
-    .scan-line {
-      animation: scanSweep 3s ease-in-out infinite;
-      transform-origin: 390px 148px;
+    /* Lidar dome rotation */
+    .lidar-spinner {
+      animation: lidarSpin 2s linear infinite;
+      transform-origin: 390px 112px;
+    }
+    @keyframes lidarSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
 
-    @keyframes scanSweep {
-      0%   { transform: rotate(-40deg); opacity: 0.6; }
-      50%  { transform: rotate(40deg);  opacity: 0.9; }
-      100% { transform: rotate(-40deg); opacity: 0.6; }
+    /* Sensor pulse */
+    .pulse-ring {
+      transform-origin: 390px 112px;
+      animation: pulseOut 2.4s ease-out infinite;
+      opacity: 0;
+    }
+    .pulse-ring:nth-child(2) { animation-delay: 0.8s; }
+    .pulse-ring:nth-child(3) { animation-delay: 1.6s; }
+    @keyframes pulseOut {
+      0%   { transform: scale(0.2); opacity: 0.7; }
+      100% { transform: scale(2.2); opacity: 0; }
     }
 
-    /* ── Code card ── */
+    /* Road scroll */
+    .road-dashes {
+      animation: roadMove 0.55s linear infinite;
+    }
+    @keyframes roadMove {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-64px); }
+    }
+
+    /* Headlight pulse */
+    .headlight-beam {
+      animation: beamPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes beamPulse {
+      0%,100% { opacity: 0.12; }
+      50%     { opacity: 0.28; }
+    }
+
+    /* Sensor dot blink */
+    .sensor-dot {
+      animation: dotBlink 1.8s ease-in-out infinite;
+    }
+    .sensor-dot:nth-child(even) { animation-delay: 0.9s; }
+    @keyframes dotBlink {
+      0%,100% { opacity: 0.3; }
+      50%     { opacity: 1; }
+    }
+
+    /* Code card */
     .code-card {
       background: rgba(20,20,28,0.85);
       border: 1px solid #2a2a3a;
@@ -223,7 +218,6 @@
 
     .cta-note { font-size: 12px; color: #444; margin-top: 12px; }
 
-    /* ── Steps ── */
     .steps {
       width: 100%;
       max-width: 860px;
@@ -241,10 +235,7 @@
       transition: border-color 0.2s, transform 0.2s;
     }
 
-    .step:hover {
-      border-color: #2a3a4a;
-      transform: translateY(-3px);
-    }
+    .step:hover { border-color: #2a3a4a; transform: translateY(-3px); }
 
     .step-num {
       font-size: 11px;
@@ -257,7 +248,6 @@
     .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
     .step p  { font-size: 0.88rem; color: #666; line-height: 1.6; }
 
-    /* ── Info ── */
     .info {
       width: 100%;
       max-width: 660px;
@@ -268,7 +258,6 @@
     .info h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 14px; }
     .info p  { color: #666; line-height: 1.8; font-size: 0.95rem; }
 
-    /* ── Footer ── */
     footer {
       width: 100%;
       border-top: 1px solid #111;
@@ -283,7 +272,6 @@
 </head>
 <body>
 
-  <!-- Particle canvas -->
   <canvas id="bg-canvas"></canvas>
 
   <section class="hero">
@@ -295,142 +283,300 @@
     </p>
   </section>
 
-  <!-- Animated SVG Car Scene -->
+  <!-- Waymo I-PACE style animated car -->
   <div class="car-scene">
-    <svg viewBox="0 0 780 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1a1a2e"/>
-          <stop offset="100%" stop-color="#0d0d18"/>
+        <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#d8e8f0"/>
+          <stop offset="40%"  stop-color="#c0d4e2"/>
+          <stop offset="100%" stop-color="#8aaabb"/>
         </linearGradient>
-        <linearGradient id="carGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1e2535"/>
-          <stop offset="100%" stop-color="#111620"/>
+        <linearGradient id="bodyShade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#000" stop-opacity="0.18"/>
+          <stop offset="30%"  stop-color="#000" stop-opacity="0"/>
+          <stop offset="70%"  stop-color="#000" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="0.1"/>
         </linearGradient>
         <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#4af" stop-opacity="0.3"/>
-          <stop offset="100%" stop-color="#4af" stop-opacity="0.05"/>
+          <stop offset="0%"   stop-color="#b8d8f8" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#6aaadd" stop-opacity="0.4"/>
+        </linearGradient>
+        <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#e8f2f8"/>
+          <stop offset="100%" stop-color="#bdd0dc"/>
+        </linearGradient>
+        <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#1a1f2e"/>
+          <stop offset="100%" stop-color="#0d1018"/>
         </linearGradient>
         <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#4af" stop-opacity="0.4"/>
-          <stop offset="100%" stop-color="#4af" stop-opacity="0"/>
+          <stop offset="0%"   stop-color="#ffffaa" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#ffffaa" stop-opacity="0"/>
         </linearGradient>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        <linearGradient id="wheelGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#3a3a3a"/>
+          <stop offset="100%" stop-color="#1a1a1a"/>
+        </linearGradient>
+        <radialGradient id="shadowGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#000" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softglow" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
         <clipPath id="roadClip">
-          <rect x="0" y="200" width="780" height="60"/>
+          <rect x="0" y="222" width="780" height="58"/>
         </clipPath>
       </defs>
 
-      <!-- Road -->
-      <rect x="0" y="200" width="780" height="60" fill="url(#roadGrad)" rx="0"/>
-      <rect x="0" y="198" width="780" height="3" fill="#4af" opacity="0.15"/>
+      <!-- Ground glow -->
+      <ellipse cx="390" cy="240" rx="280" ry="18" fill="url(#shadowGrad)"/>
 
-      <!-- Animated dashed road lines -->
+      <!-- Road surface -->
+      <rect x="0" y="222" width="780" height="58" fill="url(#roadGrad)"/>
+      <rect x="0" y="221" width="780" height="2" fill="#4af" opacity="0.2"/>
+
+      <!-- Road dashes (animated) -->
       <g clip-path="url(#roadClip)">
-        <g class="road-line">
-          <rect x="0"   y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="60"  y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="120" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="180" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="240" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="300" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="360" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="420" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="480" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="540" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="600" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="660" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="720" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
-          <rect x="780" y="228" width="40" height="4" rx="2" fill="#ffffff" opacity="0.08"/>
+        <g class="road-dashes">
+          <!-- two rows of dashes for depth -->
+          <rect x="-64" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="0"   y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="64"  y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="128" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="192" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="256" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="320" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="384" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="448" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="512" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="576" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="640" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="704" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
+          <rect x="768" y="238" width="48" height="5" rx="2.5" fill="#fff" opacity="0.07"/>
         </g>
       </g>
 
       <!-- Headlight beams -->
-      <polygon class="beam" points="540,172 780,140 780,200" fill="url(#beamGrad)"/>
-      <polygon class="beam" points="540,182 780,160 780,210" fill="url(#beamGrad)" style="animation-delay:0.3s"/>
+      <polygon class="headlight-beam" points="562,182 780,148 780,215" fill="url(#beamGrad)"/>
+      <polygon class="headlight-beam" points="562,190 780,168 780,220" fill="url(#beamGrad)" style="animation-delay:0.4s"/>
 
-      <!-- Car body group (floats) -->
-      <g class="car-body">
+      <!-- ═══════════════════════════════════════════
+           WAYMO I-PACE CAR (floats as a group)
+           ═══════════════════════════════════════════ -->
+      <g class="car-group">
 
-        <!-- Car shadow -->
-        <ellipse cx="390" cy="206" rx="175" ry="8" fill="#000" opacity="0.5"/>
+        <!-- Car shadow on road -->
+        <ellipse cx="390" cy="224" rx="190" ry="7" fill="#000" opacity="0.4"/>
 
-        <!-- Main body -->
-        <rect x="200" y="155" width="380" height="50" rx="8" fill="url(#carGrad)"/>
+        <!-- ── Underbody / sill ── -->
+        <rect x="205" y="200" width="370" height="22" rx="6" fill="#1a1e28"/>
+        <!-- sill trim line -->
+        <rect x="215" y="200" width="350" height="3" rx="1.5" fill="#2a3040"/>
 
-        <!-- Cabin / roof -->
-        <path d="M280 155 Q300 110 360 108 L420 108 Q480 108 500 155 Z" fill="url(#carGrad)"/>
+        <!-- ── Main body lower ── -->
+        <rect x="195" y="162" width="390" height="62" rx="10" fill="url(#bodyGrad)"/>
 
-        <!-- Windshield -->
-        <path d="M295 153 Q312 118 360 115 L420 115 Q465 118 480 153 Z" fill="url(#glassGrad)" stroke="#4af" stroke-width="0.5" stroke-opacity="0.4"/>
+        <!-- ── Wheel arch cutouts (dark) ── -->
+        <ellipse cx="256" cy="218" rx="42" ry="22" fill="#07090f"/>
+        <ellipse cx="524" cy="218" rx="42" ry="22" fill="#07090f"/>
 
-        <!-- Side windows -->
-        <rect x="305" y="118" width="55" height="34" rx="4" fill="url(#glassGrad)" stroke="#4af" stroke-width="0.5" stroke-opacity="0.3"/>
-        <rect x="368" y="118" width="55" height="34" rx="4" fill="url(#glassGrad)" stroke="#4af" stroke-width="0.5" stroke-opacity="0.3"/>
+        <!-- ── Body shade overlay ── -->
+        <rect x="195" y="162" width="390" height="62" rx="10" fill="url(#bodyShade)"/>
 
-        <!-- Door lines -->
-        <line x1="367" y1="155" x2="367" y2="205" stroke="#4af" stroke-width="0.5" stroke-opacity="0.2"/>
-        <line x1="300" y1="170" x2="580" y2="170" stroke="#4af" stroke-width="0.3" stroke-opacity="0.15"/>
+        <!-- ── Front & rear bumper texture ── -->
+        <rect x="548" y="168" width="36" height="52" rx="8" fill="#c8dce8"/>
+        <rect x="196" y="168" width="36" height="52" rx="8" fill="#c0d4e0"/>
 
-        <!-- Headlights -->
-        <rect x="535" y="165" width="28" height="12" rx="4" fill="#4af" opacity="0.9" filter="url(#glow)"/>
-        <rect x="538" y="168" width="22" height="6" rx="3" fill="#fff" opacity="0.9"/>
+        <!-- ── Front sensor cluster (lidar bumper pod) ── -->
+        <rect x="556" y="178" width="24" height="14" rx="4" fill="#2a3545"/>
+        <rect x="559" y="181" width="18" height="8" rx="3" fill="#1a2535"/>
+        <!-- sensor dots -->
+        <circle class="sensor-dot" cx="563" cy="185" r="1.8" fill="#4af" filter="url(#glow)"/>
+        <circle class="sensor-dot" cx="569" cy="185" r="1.8" fill="#4af" filter="url(#glow)" style="animation-delay:0.6s"/>
+        <circle class="sensor-dot" cx="575" cy="185" r="1.8" fill="#4af" filter="url(#glow)" style="animation-delay:1.2s"/>
 
-        <!-- Taillights -->
-        <rect x="217" y="165" width="22" height="12" rx="4" fill="#f44" opacity="0.7" filter="url(#glow)"/>
-        <rect x="219" y="168" width="16" height="6" rx="3" fill="#f88" opacity="0.8"/>
+        <!-- ── Rear sensor cluster ── -->
+        <rect x="200" y="178" width="24" height="14" rx="4" fill="#2a3545"/>
+        <rect x="203" y="181" width="18" height="8" rx="3" fill="#1a2535"/>
+        <circle class="sensor-dot" cx="205" cy="185" r="1.8" fill="#4af" filter="url(#glow)" style="animation-delay:0.3s"/>
+        <circle class="sensor-dot" cx="211" cy="185" r="1.8" fill="#4af" filter="url(#glow)" style="animation-delay:0.9s"/>
+        <circle class="sensor-dot" cx="217" cy="185" r="1.8" fill="#4af" filter="url(#glow)" style="animation-delay:1.5s"/>
 
-        <!-- Roof sensor (lidar) -->
-        <rect x="375" y="102" width="30" height="10" rx="3" fill="#2a3545" stroke="#4af" stroke-width="0.8"/>
-        <rect x="382" y="98" width="16" height="6" rx="2" fill="#4af" opacity="0.6"/>
+        <!-- ── B-pillar side sensors ── -->
+        <rect x="370" y="165" width="8" height="20" rx="3" fill="#2a3545"/>
+        <circle class="sensor-dot" cx="374" cy="170" r="2" fill="#4af" filter="url(#glow)" style="animation-delay:0.4s"/>
+        <circle class="sensor-dot" cx="374" cy="178" r="2" fill="#4af" filter="url(#glow)" style="animation-delay:1.0s"/>
 
-        <!-- Wheels -->
-        <g class="wheel wheel-front">
-          <circle cx="498" cy="198" r="22" fill="#111" stroke="#333" stroke-width="2"/>
-          <circle cx="498" cy="198" r="14" fill="#1a1a1a" stroke="#4af" stroke-width="0.5" stroke-opacity="0.5"/>
-          <circle cx="498" cy="198" r="4" fill="#4af" opacity="0.6"/>
-          <line x1="498" y1="184" x2="498" y2="212" stroke="#333" stroke-width="1.5"/>
-          <line x1="484" y1="198" x2="512" y2="198" stroke="#333" stroke-width="1.5"/>
+        <!-- ── Cabin / roof profile (I-PACE roofline) ── -->
+        <!-- Smooth SUV roofline: sloped front, flat top, gentle fastback rear -->
+        <path d="
+          M 248 162
+          Q 265 118  310 108
+          L 460 104
+          Q 500 104  522 118
+          Q 538 130  542 162
+          Z
+        " fill="url(#roofGrad)"/>
+
+        <!-- Roof shade -->
+        <path d="
+          M 248 162
+          Q 265 118  310 108
+          L 460 104
+          Q 500 104  522 118
+          Q 538 130  542 162
+          Z
+        " fill="url(#bodyShade)" opacity="0.5"/>
+
+        <!-- ── Panoramic windshield ── -->
+        <path d="
+          M 262 160
+          Q 278 122  315 113
+          L 378 110
+          L 378 160
+          Z
+        " fill="url(#glassGrad)" stroke="#9ec8e8" stroke-width="1" stroke-opacity="0.6"/>
+
+        <!-- windshield glare streak -->
+        <path d="M 278 130 Q 290 118 308 115" stroke="#fff" stroke-width="2" stroke-opacity="0.3" fill="none" stroke-linecap="round"/>
+
+        <!-- ── Rear quarter glass ── -->
+        <path d="
+          M 384 110
+          L 454 106
+          Q 492 106  516 120
+          Q 528 130  530 160
+          L 384 160
+          Z
+        " fill="url(#glassGrad)" stroke="#9ec8e8" stroke-width="1" stroke-opacity="0.6"/>
+
+        <!-- glass glare -->
+        <path d="M 420 112 Q 450 108 475 114" stroke="#fff" stroke-width="1.5" stroke-opacity="0.25" fill="none" stroke-linecap="round"/>
+
+        <!-- ── A-pillar ── -->
+        <line x1="378" y1="110" x2="262" y2="162" stroke="#aabfcc" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- ── B-pillar ── -->
+        <rect x="376" y="108" width="10" height="52" rx="2" fill="#8aaabb"/>
+
+        <!-- ── C-pillar ── -->
+        <line x1="384" y1="108" x2="530" y2="160" stroke="#aabfcc" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- ── Door line ── -->
+        <line x1="248" y1="185" x2="542" y2="185" stroke="#aabfc8" stroke-width="1" stroke-opacity="0.4"/>
+
+        <!-- ── Door handle recesses ── -->
+        <rect x="295" y="188" width="42" height="6" rx="3" fill="#9ab5c4" opacity="0.6"/>
+        <rect x="435" y="188" width="42" height="6" rx="3" fill="#9ab5c4" opacity="0.6"/>
+
+        <!-- ── Headlights (DRL strip style) ── -->
+        <!-- Main housing -->
+        <path d="M 548 168 Q 560 166 568 172 L 568 185 Q 560 190 548 188 Z" fill="#1e2535"/>
+        <!-- DRL strip -->
+        <path d="M 550 172 Q 560 170 566 174 L 566 178 Q 558 176 550 177 Z" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
+        <!-- accent dot -->
+        <circle cx="552" cy="183" r="3" fill="#ffffaa" opacity="0.8" filter="url(#glow)"/>
+
+        <!-- ── Taillights (full-width LED strip) ── -->
+        <rect x="198" y="170" width="46" height="6" rx="3" fill="#cc2222" opacity="0.85" filter="url(#glow)"/>
+        <rect x="198" y="178" width="46" height="4" rx="2" fill="#ff4444" opacity="0.5" filter="url(#glow)"/>
+        <!-- Waymo-style thin light bar -->
+        <rect x="198" y="166" width="46" height="2" rx="1" fill="#ff6666" opacity="0.4"/>
+
+        <!-- ── Roof lidar pod ── -->
+        <!-- mounting base -->
+        <rect x="368" y="96" width="44" height="12" rx="4" fill="#2a3545"/>
+        <!-- cylindrical housing -->
+        <ellipse cx="390" cy="96" rx="20" ry="6" fill="#3a4555"/>
+        <rect x="370" y="84" width="40" height="14" rx="5" fill="#3a4555"/>
+        <ellipse cx="390" cy="84" rx="20" ry="6" fill="#4a5565"/>
+
+        <!-- Spinning lidar segments -->
+        <g class="lidar-spinner">
+          <line x1="390" y1="84" x2="390" y2="72" stroke="#4af" stroke-width="1.5" stroke-opacity="0.8"/>
+          <line x1="390" y1="84" x2="402" y2="75" stroke="#4af" stroke-width="1.5" stroke-opacity="0.6"/>
+          <line x1="390" y1="84" x2="378" y2="75" stroke="#4af" stroke-width="1.5" stroke-opacity="0.6"/>
+          <circle cx="390" cy="72" r="2" fill="#4af" filter="url(#glow)"/>
+          <circle cx="402" cy="75" r="1.5" fill="#4af" filter="url(#glow)"/>
+          <circle cx="378" cy="75" r="1.5" fill="#4af" filter="url(#glow)"/>
         </g>
-        <g class="wheel wheel-rear">
-          <circle cx="282" cy="198" r="22" fill="#111" stroke="#333" stroke-width="2"/>
-          <circle cx="282" cy="198" r="14" fill="#1a1a1a" stroke="#4af" stroke-width="0.5" stroke-opacity="0.5"/>
-          <circle cx="282" cy="198" r="4" fill="#4af" opacity="0.6"/>
-          <line x1="282" y1="184" x2="282" y2="212" stroke="#333" stroke-width="1.5"/>
-          <line x1="268" y1="198" x2="296" y2="198" stroke="#333" stroke-width="1.5"/>
+
+        <!-- Lidar lens detail -->
+        <rect x="374" y="86" width="32" height="8" rx="2" fill="#1a2535" opacity="0.8"/>
+        <rect x="376" y="87" width="6" height="6" rx="1" fill="#4af" opacity="0.4"/>
+        <rect x="384" y="87" width="6" height="6" rx="1" fill="#4af" opacity="0.4"/>
+        <rect x="392" y="87" width="6" height="6" rx="1" fill="#4af" opacity="0.4"/>
+        <rect x="400" y="87" width="6" height="6" rx="1" fill="#4af" opacity="0.3"/>
+
+        <!-- Sensor pulse rings from lidar -->
+        <circle class="pulse-ring" cx="390" cy="90" r="28" stroke="#4af" stroke-width="1.5" fill="none"/>
+        <circle class="pulse-ring" cx="390" cy="90" r="28" stroke="#4af" stroke-width="1.5" fill="none"/>
+        <circle class="pulse-ring" cx="390" cy="90" r="28" stroke="#4af" stroke-width="1.5" fill="none"/>
+
+        <!-- ── Front wheel ── -->
+        <g class="wheel-f">
+          <!-- tyre -->
+          <circle cx="524" cy="212" r="30" fill="url(#wheelGrad)"/>
+          <!-- tyre wall detail -->
+          <circle cx="524" cy="212" r="30" fill="none" stroke="#2a2a2a" stroke-width="2"/>
+          <!-- rim -->
+          <circle cx="524" cy="212" r="20" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="1.5"/>
+          <!-- spokes (I-PACE style 5-spoke) -->
+          <line x1="524" y1="192" x2="524" y2="232" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+          <line x1="505" y1="199" x2="543" y2="225" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+          <line x1="505" y1="225" x2="543" y2="199" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+          <!-- centre cap -->
+          <circle cx="524" cy="212" r="6" fill="#4af" opacity="0.7"/>
+          <circle cx="524" cy="212" r="3" fill="#fff" opacity="0.5"/>
         </g>
 
-        <!-- Lidar scan line -->
-        <line class="scan-line" x1="390" y1="100" x2="390" y2="20" stroke="#4af" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="4 3"/>
+        <!-- ── Rear wheel ── -->
+        <g class="wheel-r">
+          <circle cx="256" cy="212" r="30" fill="url(#wheelGrad)"/>
+          <circle cx="256" cy="212" r="30" fill="none" stroke="#2a2a2a" stroke-width="2"/>
+          <circle cx="256" cy="212" r="20" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="1.5"/>
+          <line x1="256" y1="192" x2="256" y2="232" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+          <line x1="237" y1="199" x2="275" y2="225" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+          <line x1="237" y1="225" x2="275" y2="199" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="256" cy="212" r="6" fill="#4af" opacity="0.7"/>
+          <circle cx="256" cy="212" r="3" fill="#fff" opacity="0.5"/>
+        </g>
 
-        <!-- Sensor pulse rings -->
-        <circle class="sensor-ring" cx="390" cy="100" r="30" stroke="#4af" stroke-width="1" fill="none" opacity="0"/>
-        <circle class="sensor-ring" cx="390" cy="100" r="30" stroke="#4af" stroke-width="1" fill="none" opacity="0"/>
-        <circle class="sensor-ring" cx="390" cy="100" r="30" stroke="#4af" stroke-width="1" fill="none" opacity="0"/>
+        <!-- Waymo logo area on door (subtle) -->
+        <rect x="300" y="175" width="62" height="8" rx="2" fill="#aabfc8" opacity="0.25"/>
 
       </g>
 
-      <!-- Floating data points -->
-      <circle cx="160" cy="80"  r="2" fill="#4af" opacity="0.4">
-        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.1s" repeatCount="indefinite"/>
+      <!-- Floating scan dots around the car -->
+      <circle cx="130" cy="90"  r="2.5" fill="#4af" opacity="0.35">
+        <animate attributeName="opacity" values="0.35;0.9;0.35" dur="2.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="90;85;90" dur="3s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="620" cy="60"  r="2" fill="#4af" opacity="0.3">
-        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.7s" repeatCount="indefinite"/>
+      <circle cx="650" cy="70"  r="2" fill="#4af" opacity="0.4">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="70;65;70" dur="2.5s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="680" cy="120" r="1.5" fill="#4af" opacity="0.5">
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="2.4s" repeatCount="indefinite"/>
+      <circle cx="700" cy="130" r="1.8" fill="#4af" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.6s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="100" cy="140" r="1.5" fill="#4af" opacity="0.3">
-        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="1.9s" repeatCount="indefinite"/>
+      <circle cx="80"  cy="155" r="1.5" fill="#4af" opacity="0.25">
+        <animate attributeName="opacity" values="0.25;0.7;0.25" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="620" cy="155" r="1.5" fill="#4af" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.75;0.3" dur="1.6s" repeatCount="indefinite"/>
       </circle>
 
-      <!-- Speed lines -->
-      <line x1="60"  y1="168" x2="140" y2="168" stroke="#4af" stroke-width="1" stroke-opacity="0.12"/>
-      <line x1="40"  y1="178" x2="130" y2="178" stroke="#4af" stroke-width="0.8" stroke-opacity="0.08"/>
-      <line x1="70"  y1="188" x2="120" y2="188" stroke="#4af" stroke-width="0.6" stroke-opacity="0.06"/>
+      <!-- Speed lines (left side) -->
+      <line x1="30"  y1="175" x2="130" y2="175" stroke="#4af" stroke-width="1.2" stroke-opacity="0.1"/>
+      <line x1="10"  y1="185" x2="120" y2="185" stroke="#4af" stroke-width="0.8" stroke-opacity="0.07"/>
+      <line x1="50"  y1="195" x2="130" y2="195" stroke="#4af" stroke-width="0.6" stroke-opacity="0.05"/>
     </svg>
   </div>
 
@@ -445,7 +591,6 @@
     <p class="cta-note">Enter code at checkout in the Waymo app</p>
   </div>
 
-  <!-- Steps -->
   <section class="steps">
     <div class="step">
       <div class="step-num">Step 1</div>
@@ -464,7 +609,6 @@
     </div>
   </section>
 
-  <!-- Info -->
   <section class="info">
     <h2>What is Waymo?</h2>
     <p>
@@ -483,7 +627,6 @@
   </footer>
 
   <script>
-    // ── Copy code ──
     function copyCode() {
       navigator.clipboard.writeText("ANDREW3BYE").then(() => {
         const hint = document.getElementById("hint");
@@ -496,7 +639,7 @@
       });
     }
 
-    // ── Particle field ──
+    // Particle field
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
     let W, H, particles = [];
@@ -514,52 +657,44 @@
           x: Math.random() * W,
           y: Math.random() * H,
           r: Math.random() * 1.4 + 0.3,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          alpha: Math.random() * 0.5 + 0.1,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          alpha: Math.random() * 0.45 + 0.08,
         });
       }
     }
 
-    function drawParticles() {
+    function draw() {
       ctx.clearRect(0, 0, W, H);
       for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = W;
-        if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H;
-        if (p.y > H) p.y = 0;
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(68,170,255,${p.alpha})`;
         ctx.fill();
       }
-
-      // Draw connecting lines between nearby particles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
+          const d  = Math.sqrt(dx*dx + dy*dy);
+          if (d < 100) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(68,170,255,${0.06 * (1 - dist / 100)})`;
+            ctx.strokeStyle = `rgba(68,170,255,${0.055*(1-d/100)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
       }
-
-      requestAnimationFrame(drawParticles);
+      requestAnimationFrame(draw);
     }
 
     window.addEventListener("resize", () => { resize(); initParticles(); });
-    resize();
-    initParticles();
-    drawParticles();
+    resize(); initParticles(); draw();
   </script>
 
 </body>
