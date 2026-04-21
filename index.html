@@ -66,88 +66,6 @@
       line-height: 1.7;
     }
 
-    /* Car scene */
-    .car-scene {
-      width: 100%;
-      max-width: 820px;
-      margin: 0 auto 40px;
-      padding: 0 16px;
-    }
-
-    .car-scene svg {
-      width: 100%;
-      height: auto;
-      overflow: visible;
-    }
-
-    /* Float animation for whole car */
-    .car-group {
-      animation: carFloat 4s ease-in-out infinite;
-    }
-    @keyframes carFloat {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
-    }
-
-    /* Wheel spin */
-    .wheel-f { animation: spin 0.9s linear infinite; transform-origin: 524px 212px; }
-    .wheel-r { animation: spin 0.9s linear infinite; transform-origin: 256px 212px; }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-
-    /* Lidar dome rotation */
-    .lidar-spinner {
-      animation: lidarSpin 2s linear infinite;
-      transform-origin: 390px 112px;
-    }
-    @keyframes lidarSpin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-
-    /* Sensor pulse */
-    .pulse-ring {
-      transform-origin: 390px 112px;
-      animation: pulseOut 2.4s ease-out infinite;
-      opacity: 0;
-    }
-    .pulse-ring:nth-child(2) { animation-delay: 0.8s; }
-    .pulse-ring:nth-child(3) { animation-delay: 1.6s; }
-    @keyframes pulseOut {
-      0%   { transform: scale(0.2); opacity: 0.7; }
-      100% { transform: scale(2.2); opacity: 0; }
-    }
-
-    /* Road scroll */
-    .road-dashes {
-      animation: roadMove 0.55s linear infinite;
-    }
-    @keyframes roadMove {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-64px); }
-    }
-
-    /* Headlight pulse */
-    .headlight-beam {
-      animation: beamPulse 2.5s ease-in-out infinite;
-    }
-    @keyframes beamPulse {
-      0%,100% { opacity: 0.12; }
-      50%     { opacity: 0.28; }
-    }
-
-    /* Sensor dot blink */
-    .sensor-dot {
-      animation: dotBlink 1.8s ease-in-out infinite;
-    }
-    .sensor-dot:nth-child(even) { animation-delay: 0.9s; }
-    @keyframes dotBlink {
-      0%,100% { opacity: 0.3; }
-      50%     { opacity: 1; }
-    }
-
     /* Code card */
     .code-card {
       background: rgba(20,20,28,0.85);
@@ -283,9 +201,8 @@
     </p>
   </section>
 
-  <!-- Waymo I-PACE style animated car -->
-  <div class="car-scene">
-    <svg viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
+  <!-- car removed -->
+  <svg style="display:none" viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%"   stop-color="#d8e8f0"/>
@@ -577,8 +494,7 @@
       <line x1="30"  y1="175" x2="130" y2="175" stroke="#4af" stroke-width="1.2" stroke-opacity="0.1"/>
       <line x1="10"  y1="185" x2="120" y2="185" stroke="#4af" stroke-width="0.8" stroke-opacity="0.07"/>
       <line x1="50"  y1="195" x2="130" y2="195" stroke="#4af" stroke-width="0.6" stroke-opacity="0.05"/>
-    </svg>
-  </div>
+  </svg>
 
   <!-- Code card -->
   <div class="code-card">
